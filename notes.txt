@@ -1,0 +1,7 @@
+1. Basic ts set up; "Hello World"
+2. Define the interfaces for the input and the output csv
+3. Parse the input and log to the console
+4. Basic transform function
+5. Item specific transform functions
+
+https://www.npmjs.com/package/csv-parse //npm parsing package
