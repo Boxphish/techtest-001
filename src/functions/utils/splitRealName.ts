@@ -28,6 +28,6 @@ export default function splitRealName(realName: string): FullName {
 
   fullName.familyName = names.length > 1 ? names[names.length - 1] : "";
 
-  console.log(fullName);
+  // console.log(fullName);
   return fullName;
 }

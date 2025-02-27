@@ -6,11 +6,11 @@ export interface UsersOutput {
   password: string | undefined;
   hash: string;
   salt: string;
-  email: string;
+  email: string | undefined;
   gender: string;
   dob: string; //format date
   address: string;
-  ip: string; //format ipv4
+  ip: string;
   secret_question_one: string;
   secret_answer_one: string;
   secret_question_two: string | undefined;
