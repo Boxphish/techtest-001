@@ -3,7 +3,7 @@ export interface UsersOutput {
   username: string;
   first_name: string;
   family_name: string;
-  password: string;
+  password: string | undefined;
   hash: string;
   salt: string;
   email: string;

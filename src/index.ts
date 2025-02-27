@@ -1,21 +1,30 @@
-import { parse } from "csv-parse/sync";
+import { parse } from "csv-parse";
 import * as fs from "fs";
 import * as path from "path";
 import { UsersInput } from "./interfaces/UsersInput";
 import transformData from "./functions/transformData";
+import { Transform } from "stream";
+import { transform } from "stream-transform";
+import * as fy from "csv-stringify";
 
-console.log("Hello, world!");
-
-//get the csv file
+//create a stream from the input file
 const inputPath = path.resolve(__dirname, "../files/users.csv");
-const inputFile = fs.readFileSync(inputPath, "utf8");
+const inputStream = fs.createReadStream(inputPath);
 
-const inputUsers = parse(inputFile, {
+//create output stream for transformed data
+const outputPath = path.resolve(__dirname, "../files/users-output.csv");
+const outputStream = fs.createWriteStream(outputPath);
+
+const parser = parse({
   columns: true,
   skip_empty_lines: true,
-}) as UsersInput[];
+});
 
-const outputData = transformData(inputUsers);
+const transformer = transform(transformData); //only pass the callback, signature is as expected.
 
-console.log(inputUsers[1]);
-console.log(outputData[1]);
+inputStream
+  .pipe(parser)
+  .pipe(transformer)
+  .pipe(fy.stringify({ header: true }))
+  .pipe(outputStream)
+  .on("finish", () => console.log("data transformation complete"));
